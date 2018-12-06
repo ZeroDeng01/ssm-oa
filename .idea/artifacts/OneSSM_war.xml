@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="OneSSM:war">
+    <output-path>$PROJECT_DIR$/../OneSSM/target</output-path>
+    <root id="archive" name="OneSSM.war">
+      <element id="artifact" artifact-name="OneSSM:war exploded" />
+    </root>
+  </artifact>
+</component>
