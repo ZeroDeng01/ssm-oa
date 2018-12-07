@@ -1,19 +1,15 @@
 package com.zerodeng.controller;
 
-import com.zerodeng.bean.system.SystemModules;
 import com.zerodeng.bean.system.SystemUsers;
-import com.zerodeng.service.system.Modules.SystemModulesService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * @ClassName:Index
@@ -40,24 +36,49 @@ public class Index {
         HttpSession session = request.getSession();
         SystemUsers user = (SystemUsers)session.getAttribute("user");
         modelAndView.addObject("UserName",user.getName());
-        modelAndView.addObject("indexActive","active");
         return modelAndView;
     }
+
     /**
     * @Author ZeroDeng
-    * @Description TODO 初始化主页用户信息
-    * @Date 19:51 2018-12-06
-    * @Param [request, response, model]
+    * @Description TODO 设置主题
+    * @Date 14:13 2018-12-07
+    * @Param []
     * @return org.springframework.web.servlet.ModelAndView
     * @Version 1.0
     **/
-    public static ModelAndView initIndex(HttpServletRequest request, HttpServletResponse response,ModelAndView model){
-        HttpSession session = request.getSession();
-        SystemUsers user = (SystemUsers)session.getAttribute("user");
-        model.addObject("UserName",user.getName());
-        model.addObject("indexActive","active");
-        return model;
+    @RequestMapping(value = "setTheme",method = RequestMethod.GET)
+    public ModelAndView setTheme(){
+        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/common/setTheme");
+        return modelAndView;
     }
 
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 打开消息选项卡
+    * @Date 14:31 2018-12-07
+    * @Param []
+    * @return org.springframework.web.servlet.ModelAndView
+    * @Version 1.0
+    **/
+    @RequestMapping(value = "messagePage",method = RequestMethod.GET)
+    public ModelAndView messagePagge(){
+        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/common/message");
+        return modelAndView;
+    }
+
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 打开修改密码选项卡
+    * @Date 14:32 2018-12-07
+    * @Param []
+    * @return org.springframework.web.servlet.ModelAndView
+    * @Version 1.0
+    **/
+    @RequestMapping(value = "setPasswordPage",method = RequestMethod.GET)
+    public ModelAndView setPasswordPage(){
+        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/common/password");
+        return modelAndView;
+    }
 
 }

@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 @Service("UserService")
 public class SystemUsersServiceImpl implements SystemUsersService {
     @Resource
-    private SystemUsersMapper userMapper;
+    private SystemUsersMapper systemUsersMapper;
     /**
     * @Author ZeroDeng
     * @Description TODO 用户名密码校验
@@ -20,7 +20,7 @@ public class SystemUsersServiceImpl implements SystemUsersService {
     * @Version 1.0
     **/
     public SystemUsers login(String UserName, String Password){
-        SystemUsers user = userMapper.login(UserName,Password);
+        SystemUsers user = systemUsersMapper.login(UserName,Password);
         return user;
     }
     /**
@@ -32,7 +32,7 @@ public class SystemUsersServiceImpl implements SystemUsersService {
     * @Version 1.0
     **/
     public SystemUsers selectByUserName(String UserName){
-        SystemUsers user = userMapper.selectByUserName(UserName);
+        SystemUsers user = systemUsersMapper.selectByUserName(UserName);
         return user;
     }
     /**
@@ -44,7 +44,7 @@ public class SystemUsersServiceImpl implements SystemUsersService {
     * @Version 1.0
     **/
     public SystemUsers selectByEmail(String Email){
-        SystemUsers user = userMapper.selectByEmail(Email);
+        SystemUsers user = systemUsersMapper.selectByEmail(Email);
         return user;
     }
     /**
@@ -56,7 +56,7 @@ public class SystemUsersServiceImpl implements SystemUsersService {
     * @Version 1.0
     **/
     public int insertUser(SystemUsers user){
-        int num = userMapper.insert(user);
+        int num = systemUsersMapper.insert(user);
         return num;
     }
 }

@@ -1,7 +1,6 @@
 package com.zerodeng.service.system.Modules;
 
 import com.zerodeng.bean.system.SystemModules;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -22,4 +21,22 @@ public interface SystemModulesService {
     * @Version 1.0
     **/
     public List<SystemModules> selectAll();
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 查询所有非按钮的菜单信息
+    * @Date 18:21 2018-12-07
+    * @Param []
+    * @return java.util.List<com.zerodeng.bean.system.SystemModules>
+    * @Version 1.0
+    **/
+    public  List<SystemModules> selectAllNotMenu();
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 添加模块信息
+    * @Date 18:54 2018-12-07
+    * @Param [modules]
+    * @return int
+    * @Version 1.0
+    **/
+    public int insertModules(SystemModules modules);
 }
