@@ -59,7 +59,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/common.js"></script>
 
 <script>
-    layui.use(['layer', 'form', 'table', 'treetable'], function () {
+    layui.use(['layer', 'form', 'table', 'treetable','admin'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var form = layui.form;
@@ -125,25 +125,24 @@
             var layEvent = obj.event;
 
             if (layEvent === 'edit') { // 修改
-                layer.msg("修改");
-                showEditModel(data);
+                showEditModel(obj.data.id);
             } else if (layEvent === 'del') { // 删除
-                layer.msg("删除");
-                doDelete(obj.data.authorityId);
+                doDelete(obj.data.id);
             }
         });
 
         // 删除
         function doDelete(authorityId) {
-            top.layer.confirm('确定删除此权限吗？', function () {
+            top.layer.confirm('确定删除此模块吗？', function (index) {
                 layer.load(2);
-                $.post('authorities/delete', {
-                    authorityId: authorityId
+                $.post('/System/Modules/modulesDel.do', {
+                    id: authorityId
                 }, function (data) {
                     layer.closeAll('loading');
                     if (data.code == 200) {
                         layer.msg(data.msg, {icon: 1});
                         renderTable();
+                        top.layer.close(index);
                     } else {
                         layer.msg(data.msg, {icon: 2});
                     }
@@ -158,13 +157,13 @@
         });
         // 显示表单弹窗
         function showEditModel(data) {
-            admin.putTempData('t_authoritie', data);
+            //admin.putTempData('t_authoritie', data);
             admin.putTempData('formOk', false);
             top.layui.admin.open({
                 type: 2,
-                title: data ? '修改权限' : '添加权限',
+                title: data ? '修改模块' : '添加模块',
                 area: ['380px', '500px'],
-                content: '/System/Modules/modulesAddPage.do',
+                content:data ? '/System/Modules/modulesModPage.do?id='+data:'/System/Modules/modulesAddPage.do',
                 end: function () {
                     admin.getTempData('formOk') && renderTable();  // 成功刷新表格
                 }

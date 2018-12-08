@@ -60,7 +60,7 @@ public class Modules {
     * @return org.springframework.web.servlet.ModelAndView
     * @Version 1.0
     **/
-    @RequestMapping(value = "getModulesList",method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "getModulesList",produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getModulesList(HttpServletRequest request, HttpServletResponse response){
 
@@ -75,7 +75,6 @@ public class Modules {
         map.put("msg","success");
         map.put("data",MosulesList);
         String jsonString = JSON.toJSONString(map);
-        logger.debug(jsonString);
         return jsonString;
     }
 
@@ -99,9 +98,9 @@ public class Modules {
     /**
     * @Author ZeroDeng
     * @Description TODO 添加模块数据
-    * @Date 18:40 2018-12-07
-    * @Param []
-    * @return
+    * @Date 23:56 2018-12-07
+    * @Param [request, response, authorityName, authority, menuUrl, menuIcon, isMenu, orderNumber, parentId]
+    * @return java.lang.String
     * @Version 1.0
     **/
     @RequestMapping(value = "modulesAdd" ,method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
@@ -144,5 +143,104 @@ public class Modules {
         return json;
     }
 
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 删除模板数据
+    * @Date 0:25 2018-12-08
+    * @Param [request, response, id]
+    * @return java.lang.String
+    * @Version 1.0
+    **/
+    @RequestMapping(value = "modulesDel" ,method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String modulesDel(HttpServletRequest request, HttpServletResponse response,
+                             @RequestParam("id") int id)
+    {
+        int status = systemModulesService.deleteById(id);
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        if(status>0){
+            map.put("code",200);
+            map.put("msg","删除成功");
+        }else{
+            map.put("code",2001);
+            map.put("msg","删除失败");
+        }
+        String json = JSON.toJSONString(map);
+        return json;
+    }
 
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 打开修改页面
+    * @Date 0:28 2018-12-08
+    * @Param [id]
+    * @return org.springframework.web.servlet.ModelAndView
+    * @Version 1.0
+    **/
+    @RequestMapping(value = "modulesModPage",method = RequestMethod.GET)
+    public ModelAndView modulesModPage(@RequestParam("id") long id){
+        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/page/system/modules/modulesMod");
+        SystemModules systemModules = systemModulesService.selectByPrimaryKey(id);
+        modelAndView.addObject("id",systemModules.getId());
+        modelAndView.addObject("authorityName",systemModules.getAuthorityname());
+        modelAndView.addObject("authority",systemModules.getAuthority());
+        modelAndView.addObject("menuUrl",systemModules.getMenuurl());
+        modelAndView.addObject("menuIcon",systemModules.getMenuicon());
+        modelAndView.addObject("isMenu",systemModules.getIsmenu());
+        modelAndView.addObject("orderNumber",systemModules.getOrdernumber());
+        modelAndView.addObject("parentId",systemModules.getParentid());
+        List<SystemModules> ModulesList = systemModulesService.selectAllNotMenu();
+        modelAndView.addObject("list",ModulesList);
+        return modelAndView;
+    }
+
+    /**
+     * @Author ZeroDeng
+     * @Description TODO 修改模块数据
+     * @Date 23:56 2018-12-07
+     * @Param [request, response, authorityName, authority, menuUrl, menuIcon, isMenu, orderNumber, parentId]
+     * @return java.lang.String
+     * @Version 1.0
+     **/
+    @RequestMapping(value = "modulesMod" ,method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String modulesMod(HttpServletRequest request, HttpServletResponse response,
+                             @RequestParam("id") long id,
+                             @RequestParam("authorityName") String authorityName,
+                             @RequestParam("authority") String authority,
+                             @RequestParam("menuUrl") String menuUrl,
+                             @RequestParam("menuIcon") String menuIcon,
+                             @RequestParam("isMenu") int isMenu,
+                             @RequestParam("orderNumber") int orderNumber,
+                             @RequestParam("parentId") long parentId)
+    {
+        HttpSession session = request.getSession();
+        SystemUsers user = (SystemUsers)session.getAttribute("user");
+        java.util.Date  date=new java.util.Date();
+        java.sql.Date  sqldate=new java.sql.Date(date.getTime());
+
+        SystemModules systemModules = new SystemModules();
+        systemModules.setId(id);
+        systemModules.setAuthorityname(authorityName);
+        systemModules.setAuthority(authority);
+        systemModules.setMenuurl(menuUrl);
+        systemModules.setMenuicon(menuIcon);
+        systemModules.setIsmenu(isMenu);
+        systemModules.setOrdernumber(orderNumber);
+        systemModules.setParentid(parentId);
+        systemModules.setModifyUser(user.getId());
+        systemModules.setModifyTime(sqldate);
+        systemModules.setStatus(0);
+        int status = systemModulesService.updateByPrimaryKeySelective(systemModules);
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        if(status>0){
+            map.put("code",200);
+            map.put("msg","修改成功");
+        }else{
+            map.put("code",2001);
+            map.put("msg","修改失败");
+        }
+        String json = JSON.toJSONString(map);
+        return json;
+    }
 }

@@ -46,4 +46,37 @@ public class SystemModulesServiceImpl implements SystemModulesService{
     public int insertModules(SystemModules modules){
         return systemModulesMapper.insertSelective(modules);
     }
+    /**
+     * @Author ZeroDeng
+     * @Description TODO 删除模块信息
+     * @Date 23:53 2018-12-07
+     * @Param [id]
+     * @return int
+     * @Version 1.0
+     **/
+    public int deleteById(int id){
+        return systemModulesMapper.deleteById(id);
+    }
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 查询指定模块信息
+    * @Date 0:31 2018-12-08
+    * @Param [id]
+    * @return com.zerodeng.bean.system.SystemModules
+    * @Version 1.0
+    **/
+    public SystemModules selectByPrimaryKey(Long id){
+        return systemModulesMapper.selectByPrimaryKey(id);
+    }
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 修改模块信息
+    * @Date 1:10 2018-12-08
+    * @Param [record]
+    * @return int
+    * @Version 1.0
+    **/
+    public int updateByPrimaryKeySelective(SystemModules record){
+        return systemModulesMapper.updateByPrimaryKeySelective(record);
+    }
 }

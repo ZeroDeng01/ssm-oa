@@ -39,4 +39,31 @@ public interface SystemModulesService {
     * @Version 1.0
     **/
     public int insertModules(SystemModules modules);
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 删除模块信息
+    * @Date 23:53 2018-12-07
+    * @Param [id]
+    * @return int
+    * @Version 1.0
+    **/
+    public int deleteById(int id);
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 查询指定模块信息
+    * @Date 0:30 2018-12-08
+    * @Param [id]
+    * @return com.zerodeng.bean.system.SystemModules
+    * @Version 1.0
+    **/
+    public SystemModules selectByPrimaryKey(Long id);
+    /**
+    * @Author ZeroDeng
+    * @Description TODO 修改模块信息
+    * @Date 1:09 2018-12-08
+    * @Param [record]
+    * @return int
+    * @Version 1.0
+    **/
+    public int updateByPrimaryKeySelective(SystemModules record);
 }

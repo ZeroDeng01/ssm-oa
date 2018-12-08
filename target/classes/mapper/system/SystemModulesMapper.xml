@@ -206,13 +206,18 @@
     where status!=1
   </select>
 
-  <!--返回所有非按钮的惨淡结果集-->
+  <!--返回所有非按钮的结果集-->
   <select id="selectAllNotMenu" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     *
     from zd_system_modules
     where status!=1 and ismenu!=1
   </select>
-
+  <!--标记指定id记录删除状态 status=1为删除状态-->
+  <update id="deleteById" parameterType="java.lang.Integer" >
+    update zd_system_modules
+    set status = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
 </mapper>

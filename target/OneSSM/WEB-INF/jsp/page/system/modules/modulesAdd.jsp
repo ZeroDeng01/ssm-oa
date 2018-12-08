@@ -18,7 +18,7 @@
 </div>
 
 <form id="authForm" lay-filter="authForm"  class="layui-form model-form">
-    <input name="authorityId" type="hidden"/>
+    <input name="id" type="hidden"/>
     <div class="layui-form-item">
         <label class="layui-form-label">权限名称</label>
         <div class="layui-input-block">
@@ -99,7 +99,6 @@
             $.post(url, data.field, function (data) {
                 layer.closeAll('loading');
                 if (data.code == 200) {
-                    console.log(data.code+"");
                     top.layer.msg(data.msg, {icon: 1});
                     admin.putTempData('formOk', true);  // 操作成功刷新表格
                     // 关闭当前iframe弹出层
