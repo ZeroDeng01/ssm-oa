@@ -16,6 +16,7 @@ public class Encrypt {
     private static Logger logger = Logger.getLogger(Encrypt.class);
 
 
+
     /**
     * @Author ZeroDeng
     * @Description TODO 用户密码加解密
@@ -24,8 +25,8 @@ public class Encrypt {
     * @return java.lang.String
     * @Version 1.0
     **/
-    public static String UserPwdSHA256(final String strText) {
-        return SHA(strText+"zerodeng", "SHA-256");
+    public static String UserPwdSHA256(final String strText,final String S) {
+        return SHA(strText+S, "SHA-256");
     }
     /**
      * 传入文本内容，返回 SHA-256 串

@@ -18,8 +18,11 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <context-param> <!--全局范围内环境参数初始化-->
-        <param-name>contextConfigLocation</param-name>          <!--参数名称-->
-        <param-value>classpath:spring-mybatis.xml</param-value>     <!--参数取值-->
+        <param-name>contextConfigLocation</param-name> <!--参数名称-->
+        <param-value>
+            classpath:shiro-config.xml
+            classpath:spring-mybatis.xml
+        </param-value><!--参数取值-->
     </context-param>
 
     <!--以下配置的加载顺序:先 ServletContext >> context-param >> listener >> filter >> servlet >>  spring-->
@@ -38,6 +41,21 @@
     <filter-mapping><!--用来定义filter所对应的URL-->
         <filter-name>encodingFilter</filter-name>     <!--指定对应filter的名字-->
         <url-pattern>/*</url-pattern>       <!--指定filter所对应的URL-->
+    </filter-mapping>
+
+
+    <!-- shiro -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <!-- -监听器配置 -->

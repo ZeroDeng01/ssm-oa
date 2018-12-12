@@ -3,7 +3,7 @@ package com.zerodeng.bean.system;
 import java.util.Date;
 
 public class SystemUsers {
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -23,15 +23,15 @@ public class SystemUsers {
 
     private Date modifyTime;
 
-    private Integer createUser;
+    private Long createUser;
 
-    private Integer modifyUser;
+    private Long modifyUser;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -107,19 +107,19 @@ public class SystemUsers {
         this.modifyTime = modifyTime;
     }
 
-    public Integer getCreateUser() {
+    public Long getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(Integer createUser) {
+    public void setCreateUser(Long createUser) {
         this.createUser = createUser;
     }
 
-    public Integer getModifyUser() {
+    public Long getModifyUser() {
         return modifyUser;
     }
 
-    public void setModifyUser(Integer modifyUser) {
+    public void setModifyUser(Long modifyUser) {
         this.modifyUser = modifyUser;
     }
 }

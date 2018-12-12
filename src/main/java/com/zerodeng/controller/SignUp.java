@@ -5,6 +5,7 @@ import com.zerodeng.service.system.Users.SystemUsersService;
 import com.zerodeng.utils.Encrypt;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,9 +29,8 @@ public class SignUp {
     @Resource
     private SystemUsersService systemUsersService;
     @RequestMapping(value = "index",method = RequestMethod.GET)
-    public ModelAndView SignUp(){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/sign-up");
-        return modelAndView;
+    public String SignUp(Model model){
+        return "WEB-INF/jsp/sign-up";
     }
 
     /**
@@ -70,7 +70,7 @@ public class SignUp {
         user.setName(Name);
         user.setUser(UserName);
         user.setEmail(Email);
-        Password = Encrypt.UserPwdSHA256(Password);
+        Password = Encrypt.UserPwdSHA256(Password,UserName);
         user.setPwd(Password);
         user.setPhone("");
         int status = systemUsersService.insertUser(user);

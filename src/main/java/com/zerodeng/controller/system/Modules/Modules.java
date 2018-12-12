@@ -1,12 +1,13 @@
 package com.zerodeng.controller.system.Modules;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
 import com.zerodeng.bean.system.SystemModules;
 import com.zerodeng.bean.system.SystemUsers;
 import com.zerodeng.service.system.Modules.SystemModulesService;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +18,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,9 +47,9 @@ public class Modules {
     * @Version 1.0
     **/
     @RequestMapping(value = "ModulesList",method = RequestMethod.GET)
-    public ModelAndView ModulesList(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/page/system/modules/modulesList");
-        return modelAndView;
+    //@RequiresRoles({"123456"})
+    public String ModulesList(HttpServletRequest request, HttpServletResponse response,Model model){
+        return "WEB-INF/jsp/page/system/modules/modulesList";
     }
 
     /**
@@ -87,11 +87,10 @@ public class Modules {
     * @Version 1.0
     **/
     @RequestMapping(value = "modulesAddPage",method = RequestMethod.GET)
-    public ModelAndView modulesAddPage(){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/page/system/modules/modulesAdd");
+    public String modulesAddPage(Model model){
         List<SystemModules> ModulesList = systemModulesService.selectAllNotMenu();
-        modelAndView.addObject("list",ModulesList);
-        return modelAndView;
+        model.addAttribute("list",ModulesList);
+        return "WEB-INF/jsp/page/system/modules/modulesAdd";
     }
 
 
@@ -178,20 +177,20 @@ public class Modules {
     * @Version 1.0
     **/
     @RequestMapping(value = "modulesModPage",method = RequestMethod.GET)
-    public ModelAndView modulesModPage(@RequestParam("id") long id){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/page/system/modules/modulesMod");
+    public String modulesModPage(@RequestParam("id") long id,Model model)
+    {
         SystemModules systemModules = systemModulesService.selectByPrimaryKey(id);
-        modelAndView.addObject("id",systemModules.getId());
-        modelAndView.addObject("authorityName",systemModules.getAuthorityname());
-        modelAndView.addObject("authority",systemModules.getAuthority());
-        modelAndView.addObject("menuUrl",systemModules.getMenuurl());
-        modelAndView.addObject("menuIcon",systemModules.getMenuicon());
-        modelAndView.addObject("isMenu",systemModules.getIsmenu());
-        modelAndView.addObject("orderNumber",systemModules.getOrdernumber());
-        modelAndView.addObject("parentId",systemModules.getParentid());
+        model.addAttribute("id",systemModules.getId());
+        model.addAttribute("authorityName",systemModules.getAuthorityname());
+        model.addAttribute("authority",systemModules.getAuthority());
+        model.addAttribute("menuUrl",systemModules.getMenuurl());
+        model.addAttribute("menuIcon",systemModules.getMenuicon());
+        model.addAttribute("isMenu",systemModules.getIsmenu());
+        model.addAttribute("orderNumber",systemModules.getOrdernumber());
+        model.addAttribute("parentId",systemModules.getParentid());
         List<SystemModules> ModulesList = systemModulesService.selectAllNotMenu();
-        modelAndView.addObject("list",ModulesList);
-        return modelAndView;
+        model.addAttribute("list",ModulesList);
+        return "WEB-INF/jsp/page/system/modules/modulesMod";
     }
 
     /**

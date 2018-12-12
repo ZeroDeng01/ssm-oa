@@ -2,7 +2,11 @@ package com.zerodeng.controller;
 
 import com.zerodeng.bean.system.SystemUsers;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,12 +35,11 @@ public class Index {
     * @Version 1.0
     **/
     @RequestMapping(value = "index",method = RequestMethod.GET)
-    public ModelAndView Index(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/index");
-        HttpSession session = request.getSession();
-        SystemUsers user = (SystemUsers)session.getAttribute("user");
-        modelAndView.addObject("UserName",user.getName());
-        return modelAndView;
+    public String Index(HttpServletRequest request, HttpServletResponse response, Model model){
+        Subject currentUser = SecurityUtils.getSubject();
+        SystemUsers user = (SystemUsers) currentUser.getPrincipal();
+        model.addAttribute("UserName",user.getName());
+        return "WEB-INF/jsp/index";
     }
 
     /**
@@ -48,9 +51,8 @@ public class Index {
     * @Version 1.0
     **/
     @RequestMapping(value = "setTheme",method = RequestMethod.GET)
-    public ModelAndView setTheme(){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/common/setTheme");
-        return modelAndView;
+    public String setTheme(Model model){
+        return "WEB-INF/jsp/common/setTheme";
     }
 
     /**
@@ -62,9 +64,8 @@ public class Index {
     * @Version 1.0
     **/
     @RequestMapping(value = "messagePage",method = RequestMethod.GET)
-    public ModelAndView messagePagge(){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/common/message");
-        return modelAndView;
+    public String messagePagge(Model model){
+        return "WEB-INF/jsp/common/message";
     }
 
     /**
@@ -76,9 +77,8 @@ public class Index {
     * @Version 1.0
     **/
     @RequestMapping(value = "setPasswordPage",method = RequestMethod.GET)
-    public ModelAndView setPasswordPage(){
-        ModelAndView modelAndView = new ModelAndView("WEB-INF/jsp/common/password");
-        return modelAndView;
+    public String setPasswordPage(Model model){
+        return "WEB-INF/jsp/common/password";
     }
 
 }

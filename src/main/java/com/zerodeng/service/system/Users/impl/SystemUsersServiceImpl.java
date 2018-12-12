@@ -55,8 +55,8 @@ public class SystemUsersServiceImpl implements SystemUsersService {
     * @return int
     * @Version 1.0
     **/
-    public int insertUser(SystemUsers user){
-        int num = systemUsersMapper.insert(user);
+    public int insertUser(SystemUsers record){
+        int num = systemUsersMapper.insert(record);
         return num;
     }
 }

@@ -4,13 +4,13 @@ import com.zerodeng.bean.system.SystemUsers;
 import org.apache.ibatis.annotations.Param;
 
 public interface SystemUsersMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(SystemUsers record);
 
     int insertSelective(SystemUsers record);
 
-    SystemUsers selectByPrimaryKey(Integer id);
+    SystemUsers selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(SystemUsers record);
 

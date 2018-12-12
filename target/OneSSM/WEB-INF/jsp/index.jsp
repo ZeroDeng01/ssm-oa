@@ -87,6 +87,14 @@
                                 </dd>
                             </dl>
                         </dd>
+                        <dd>
+                            <a>用户管理</a>
+                            <dl class="layui-nav-child">
+                                <dd>
+                                    <a lay-href="/System/Users/UsersList.do">用户信息</a>
+                                </dd>
+                            </dl>
+                        </dd>
                     </dl>
                 </li>
 
