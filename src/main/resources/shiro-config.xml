@@ -36,6 +36,7 @@
                 <!--anon 表示匿名访问，不需要认证以及授权 -->
                 /UserLogin.do=anon
                 /login.do=anon
+                /assets/**=anon
                 /signup/**=anon
                 /** =  authc
                 <!--自定义urlperm表示需要认证，并且对jsp的访问会检查权限 -->

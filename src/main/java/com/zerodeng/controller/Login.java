@@ -49,7 +49,7 @@ public class Login {
                 }
             }
         }
-        return "WEB-INF/jsp/login";
+        return "/WEB-INF/jsp/login";
     }
     /**
      * @Author ZeroDeng

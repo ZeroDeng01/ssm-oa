@@ -4,8 +4,10 @@ import com.zerodeng.bean.system.SystemModules;
 import com.zerodeng.bean.system.SystemUsers;
 import com.zerodeng.service.system.Modules.SystemModulesService;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,8 +115,8 @@ public class Modules {
                              @RequestParam("orderNumber") int orderNumber,
                              @RequestParam("parentId") long parentId)
     {
-        HttpSession session = request.getSession();
-        SystemUsers user = (SystemUsers)session.getAttribute("user");
+        Subject currentUser = SecurityUtils.getSubject();
+        SystemUsers user = (SystemUsers) currentUser.getPrincipal();
         java.util.Date  date=new java.util.Date();
         java.sql.Date  sqldate=new java.sql.Date(date.getTime());
 
@@ -213,8 +215,8 @@ public class Modules {
                              @RequestParam("orderNumber") int orderNumber,
                              @RequestParam("parentId") long parentId)
     {
-        HttpSession session = request.getSession();
-        SystemUsers user = (SystemUsers)session.getAttribute("user");
+        Subject currentUser = SecurityUtils.getSubject();
+        SystemUsers user = (SystemUsers) currentUser.getPrincipal();
         java.util.Date  date=new java.util.Date();
         java.sql.Date  sqldate=new java.sql.Date(date.getTime());
 
